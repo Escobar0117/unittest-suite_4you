@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  4you_unittest:
+    build:
+      context: .
+    container_name: playwright_tests
+    volumes:
+      - .:/app
+    working_dir: /app
+    env_file:
+      - .env
+    environment:  
+      - PYTHONPATH=/app
+    command: >
+      sh -c "
+      pytest -v -s \
+      --browser chromium \
+      --browser firefox \
+      --browser webkit \
+      --slowmo 1500 \
+      testing/tests/que_es_4you/test_formulario_contactanos.py
+      "
